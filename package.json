@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --require babel-core/register test",
-    "start": "webpack"
+    "start": "webpack",
+    "eslint": "./node_modules/eslint/bin/eslint.js ./lib/*.js"
   },
   "repository": {
     "type": "git",
