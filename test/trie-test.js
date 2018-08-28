@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import Trie from '../scripts/Trie'
+import Node from '../scripts/Node'
 
 describe('TRIE', () => {
   let trie;
@@ -17,8 +18,8 @@ describe('TRIE', () => {
     expect(trie.totalWords).to.equal(0);
   });
 
-  it('should set its default root to null', () => {
-    expect(trie.root).to.eq(null);
+  it('should set its default root to empty object', () => {
+    expect(trie.root.children).to.deep.eq({});
   });
 
   it('should increase totalWords each time we instantiate a new word', () => {
@@ -26,6 +27,15 @@ describe('TRIE', () => {
     trie.insert('poop')
     expect(trie.totalWords).to.eq(1)
   });
+
+  it ('should insert word correctly when calling insert', () => {
+    trie.insert ('hello');
+    trie.insert ('cool')
+    trie.insert ('poop')
+    // console.log(JSON.stringify(trie, null, 4))
+    expect(Object.keys(trie.root.children)).to.deep.eq([ 'h', 'c', 'p' ])
+  })
+//   it('should ')
  
   // describe.skip('UNSHIFT', () => {
   //   it('should add items to front of list / head', () => {
