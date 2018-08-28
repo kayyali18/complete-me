@@ -5,7 +5,7 @@ describe('NODE', () => {
   let node;
 
   beforeEach(() => {
-    node = new Node('p');
+    node = new Node();
   })
 
   it('should exist', () => {
