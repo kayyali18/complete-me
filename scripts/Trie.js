@@ -4,7 +4,6 @@ export default class Trie {
   constructor () {
     this.totalWords = 0;
     this.root = null;
-    this.words
   }
 
   count() {
