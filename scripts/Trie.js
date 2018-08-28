@@ -3,7 +3,7 @@ import Node from './Node';
 export default class Trie {
   constructor () {
     this.totalWords = 0;
-    this.root = new Node (null);
+    this.root = new Node ();
   }
 
   count() {
@@ -27,7 +27,7 @@ export default class Trie {
       currNode = currNode.children[wordArray.shift()];
     } else {
       let letter = wordArray[0]
-      currNode.children[letter] = new Node (letter);
+      currNode.children[letter] = new Node ();
       currNode = currNode.children[letter];
       wordArray.shift ();
     }

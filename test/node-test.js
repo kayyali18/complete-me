@@ -12,10 +12,6 @@ describe('NODE', () => {
     expect(node).to.exist;
   })
 
-  it('should take letter as argument and assign it to the letter property', () => {
-    expect(node.letter).to.equal('p');
-  })
-
   it('should default end to false', () => {
     expect(node.end).to.equal(false)
   })
