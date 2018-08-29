@@ -30,14 +30,20 @@ describe('TRIE', () => {
 
   it ('should insert word correctly when calling insert', () => {
     trie.insert ('hey');
+    trie.insert ('cool');
+    trie.insert ('popeye');
+    // console.log(JSON.stringify(trie, null, 4))
+    expect(Object.keys(trie.root.children)).to.deep.eq([ 'h', 'c', 'p' ])
+  })
+
+  it ('should return an array of all possible suggestions', () => {
+    trie.insert ('hey');
     trie.insert ('hi');
     trie.insert ('hellocopter');
     trie.insert ('hello');
     trie.insert ('hellen');
-    // trie.insert ('poop')
-    trie.suggest('he')
-    // console.log(JSON.stringify(trie, null, 4))
-    // expect(Object.keys(trie.root.children)).to.deep.eq([ 'h', 'c', 'p' ])
+
+    expect (trie.suggest ('he')).to.equal(['hey', 'hello', 'hellocopter', 'hellen'])
   })
 //   it('should ')
  

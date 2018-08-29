@@ -46,7 +46,8 @@ export default class Trie {
     }
     this.suggestRecursive (currNode, finalArr);
 
-    console.log (finalArr);
+    console.log (finalArr)
+    return finalArr;
 
 
     
