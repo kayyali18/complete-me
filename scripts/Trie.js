@@ -6,35 +6,62 @@ export default class Trie {
     this.root = new Node ();
   }
 
-  count() {
-    return this.totalWords;
-  };
-
-  insert(word) {
+  insert (word) {
     let currNode = this.root;
-    let wordArray = [...word];
-    this.insertRecursive (wordArray, currNode)
-    this.totalWords++;
+    let lettersArr = [...word];
+    this.insertRecursive (lettersArr, currNode);
+    this.totalWords++
+
+    
   }
 
-  insertRecursive (wordArray, currNode) {
-    if (wordArray.length < 1) {
+  insertRecursive (lettersArr, currNode) {
+    if (!lettersArr.length) {
       currNode.end = true;
       return;
     }
 
-    if (currNode.children[wordArray[0]]) {
-      currNode = currNode.children[wordArray.shift()];
+    if (currNode.children[lettersArr[0]]) {
+      currNode = currNode.children[lettersArr.shift()];
     } else {
-      let letter = wordArray[0]
-      currNode.children[letter] = new Node ();
-      currNode = currNode.children[letter];
-      wordArray.shift ();
+      currNode.children[lettersArr[0]] = new Node ();
+      currNode = currNode.children[lettersArr.shift()];
     }
 
-    return this.insertRecursive (wordArray, currNode);
+    return this.insertRecursive (lettersArr, currNode);
   }
+}
 
+
+
+  // count() {
+  //   return this.totalWords;
+  // };
+
+  // insert(word) {
+  //   let currNode = this.root;
+  //   let wordArray = [...word];
+  //   this.insertRecursive (wordArray, currNode)
+  //   this.totalWords++;
+  // }
+
+  // insertRecursive (wordArray, currNode) {
+  //   if (wordArray.length < 1) {
+  //     currNode.end = true;
+  //     return;
+  //   }
+
+  //   if (currNode.children[wordArray[0]]) {
+  //     currNode = currNode.children[wordArray.shift()];
+  //   } else {
+  //     let letter = wordArray[0]
+  //     currNode.children[letter] = new Node ();
+  //     currNode = currNode.children[letter];
+  //     wordArray.shift ();
+  //   }
+
+  //   return this.insertRecursive (wordArray, currNode);
+  // }
   // push(data) {
   //   this.length++;
 
@@ -95,5 +122,5 @@ export default class Trie {
   //   return foundNode;
   // }
 
-}
+// }
 
