@@ -6,13 +6,15 @@ export default class Trie {
     this.root = new Node ();
   }
 
+  count () {
+    return this.totalWords;
+  }
+
   insert (word) {
     let currNode = this.root;
     let lettersArr = [...word];
     this.insertRecursive (lettersArr, currNode, word);
     this.totalWords++
-
-    
   }
 
   insertRecursive (lettersArr, currNode, word) {
@@ -46,7 +48,6 @@ export default class Trie {
     }
     this.suggestRecursive (currNode, finalArr);
 
-    console.log (finalArr)
     return finalArr;
 
 
@@ -80,6 +81,12 @@ export default class Trie {
         
       }
     }
+  }
+
+  populate (dictionary) {
+    dictionary.forEach (word => {
+      this.insert(word);
+    })
   }
 }
 
