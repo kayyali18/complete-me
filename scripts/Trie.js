@@ -76,6 +76,7 @@ export default class Trie {
         currNode.end = !currNode.end
         let key = Object.keys(currNode.children);
         if (key.length >= 1) this.suggestRecursive (currNode, finalArr)
+        currNode.end = !currNode.end
         
       }
     }

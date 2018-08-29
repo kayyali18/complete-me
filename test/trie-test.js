@@ -37,13 +37,15 @@ describe('TRIE', () => {
   })
 
   it ('should return an array of all possible suggestions', () => {
+    trie.insert ('hellen');
+    trie.insert ('hello');
+    trie.insert ('hellocopter');
     trie.insert ('hey');
     trie.insert ('hi');
-    trie.insert ('hellocopter');
-    trie.insert ('hello');
-    trie.insert ('hellen');
 
-    expect (trie.suggest ('he')).to.equal(['hey', 'hello', 'hellocopter', 'hellen'])
+    expect (trie.suggest ('he')).to.deep.equal(['hellen', 'hello', 'hellocopter', 'hey'])
+    expect (trie.suggest ('he')).to.deep.equal(['hellen', 'hello', 'hellocopter', 'hey'])
+
   })
 //   it('should ')
  
