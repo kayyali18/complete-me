@@ -9,18 +9,19 @@ export default class Trie {
   insert (word) {
     let currNode = this.root;
     let lettersArr = [...word];
-    this.insertRecursive (lettersArr, currNode);
+    this.insertRecursive (lettersArr, currNode, word);
     this.totalWords++
 
     
   }
 
-  insertRecursive (lettersArr, currNode) {
+  insertRecursive (lettersArr, currNode, word) {
     if (!lettersArr.length) {
       currNode.end = true;
+      currNode.word = word
       return;
     }
-
+    
     if (currNode.children[lettersArr[0]]) {
       currNode = currNode.children[lettersArr.shift()];
     } else {
@@ -28,7 +29,25 @@ export default class Trie {
       currNode = currNode.children[lettersArr.shift()];
     }
 
-    return this.insertRecursive (lettersArr, currNode);
+    return this.insertRecursive (lettersArr, currNode, word);
+  }
+
+  suggest (input) {
+    let completeMe = [...input];
+    let currNode = this.root;
+
+    while (completeMe.length) {
+      if (currNode.children[completeMe[0]]) {
+        currNode = currNode.children[completeMe.shift()];
+      } else {
+        return 'Sorry couldn\'t find what you were looking for';
+      }
+    }
+    
+    console.log (Object.keys(currNode.children))
+
+
+
   }
 }
 
