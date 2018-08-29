@@ -35,6 +35,7 @@ export default class Trie {
   suggest (input) {
     let completeMe = [...input];
     let currNode = this.root;
+    let finalArr = [];
 
     while (completeMe.length) {
       if (currNode.children[completeMe[0]]) {
@@ -43,11 +44,40 @@ export default class Trie {
         return 'Sorry couldn\'t find what you were looking for';
       }
     }
+    this.suggestRecursive (currNode, finalArr);
+
+    console.log (finalArr);
+
+
     
-    console.log (Object.keys(currNode.children))
+  }
 
+  suggestRecursive (currNode, finalArr) {
+    //base case
 
+    if (Object.keys(currNode.children).length > 1) {
+      let keysArr = Object.keys(currNode.children);
+      let checkpoint = currNode;
+      keysArr.forEach (key => {
+        currNode = checkpoint;
+        currNode = currNode.children[key];
+        this.suggestRecursive (currNode, finalArr);
+      })
+    } else {
+      if (!currNode.end){
+        let key = Object.keys(currNode.children);
+        currNode = currNode.children[key];
+        // console.log(JSON.stringify(currNode, null, 4))
+       this.suggestRecursive (currNode, finalArr);
 
+      } else {
+        finalArr.push (currNode.word)
+        currNode.end = !currNode.end
+        let key = Object.keys(currNode.children);
+        if (key.length >= 1) this.suggestRecursive (currNode, finalArr)
+        
+      }
+    }
   }
 }
 
