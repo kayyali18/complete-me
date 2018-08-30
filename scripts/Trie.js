@@ -49,10 +49,7 @@ export default class Trie {
     }
     this.suggestRecursive (currNode, finalArr);
 
-    return finalArr;
-
-
-    
+    return finalArr;    
   }
 
   suggestRecursive (currNode, finalArr) {
