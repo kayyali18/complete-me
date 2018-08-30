@@ -38,7 +38,7 @@ describe('TRIE', () => {
     trie.insert ('hey');
     trie.insert ('cool');
     trie.insert ('popeye');
-    // console.log(JSON.stringify(trie, null, 4))
+    console.log(JSON.stringify(trie, null, 4))
     expect(Object.keys(trie.root.children)).to.deep.eq([ 'h', 'c', 'p' ])
   })
 
