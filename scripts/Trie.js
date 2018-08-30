@@ -6,35 +6,120 @@ export default class Trie {
     this.root = new Node ();
   }
 
-  count() {
+  count () {
     return this.totalWords;
-  };
-
-  insert(word) {
-    let currNode = this.root;
-    let wordArray = [...word];
-    this.insertRecursive (wordArray, currNode)
-    this.totalWords++;
   }
 
-  insertRecursive (wordArray, currNode) {
-    if (wordArray.length < 1) {
+  insert (word) {
+    let currNode = this.root;
+    let lettersArr = [...word];
+    this.insertRecursive (lettersArr, currNode, word);
+    this.totalWords++
+  }
+
+  insertRecursive (lettersArr, currNode, word) {
+    if (!lettersArr.length) {
       currNode.end = true;
+      currNode.word = word
       return;
     }
-
-    if (currNode.children[wordArray[0]]) {
-      currNode = currNode.children[wordArray.shift()];
+    
+    if (currNode.children[lettersArr[0]]) {
+      currNode = currNode.children[lettersArr.shift()];
     } else {
-      let letter = wordArray[0]
-      currNode.children[letter] = new Node ();
-      currNode = currNode.children[letter];
-      wordArray.shift ();
+      currNode.children[lettersArr[0]] = new Node ();
+      currNode = currNode.children[lettersArr.shift()];
     }
 
-    return this.insertRecursive (wordArray, currNode);
+    return this.insertRecursive (lettersArr, currNode, word);
   }
 
+  suggest (input) {
+    let completeMe = [...input];
+    let currNode = this.root;
+    let finalArr = [];
+
+    while (completeMe.length) {
+      if (currNode.children[completeMe[0]]) {
+        currNode = currNode.children[completeMe.shift()];
+      } else {
+        return 'Sorry couldn\'t find what you were looking for';
+      }
+    }
+    this.suggestRecursive (currNode, finalArr);
+
+    return finalArr;
+
+
+    
+  }
+
+  suggestRecursive (currNode, finalArr) {
+    //base case
+
+    if (Object.keys(currNode.children).length > 1) {
+      let keysArr = Object.keys(currNode.children);
+      let checkpoint = currNode;
+      keysArr.forEach (key => {
+        currNode = checkpoint;
+        currNode = currNode.children[key];
+        this.suggestRecursive (currNode, finalArr);
+      })
+    } else {
+      if (!currNode.end){
+        let key = Object.keys(currNode.children);
+        currNode = currNode.children[key];
+        // console.log(JSON.stringify(currNode, null, 4))
+       this.suggestRecursive (currNode, finalArr);
+
+      } else {
+        finalArr.push (currNode.word)
+        currNode.end = !currNode.end
+        let key = Object.keys(currNode.children);
+        if (key.length >= 1) this.suggestRecursive (currNode, finalArr)
+        currNode.end = !currNode.end
+        
+      }
+    }
+  }
+
+  populate (dictionary) {
+    dictionary.forEach (word => {
+      this.insert(word);
+    })
+  }
+}
+
+
+
+  // count() {
+  //   return this.totalWords;
+  // };
+
+  // insert(word) {
+  //   let currNode = this.root;
+  //   let wordArray = [...word];
+  //   this.insertRecursive (wordArray, currNode)
+  //   this.totalWords++;
+  // }
+
+  // insertRecursive (wordArray, currNode) {
+  //   if (wordArray.length < 1) {
+  //     currNode.end = true;
+  //     return;
+  //   }
+
+  //   if (currNode.children[wordArray[0]]) {
+  //     currNode = currNode.children[wordArray.shift()];
+  //   } else {
+  //     let letter = wordArray[0]
+  //     currNode.children[letter] = new Node ();
+  //     currNode = currNode.children[letter];
+  //     wordArray.shift ();
+  //   }
+
+  //   return this.insertRecursive (wordArray, currNode);
+  // }
   // push(data) {
   //   this.length++;
 
@@ -95,5 +180,5 @@ export default class Trie {
   //   return foundNode;
   // }
 
-}
+// }
 
