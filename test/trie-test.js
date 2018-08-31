@@ -60,3 +60,18 @@ describe('TRIE', () => {
 
   });
 });
+
+
+/* INSERT
+
+  - it should incrememnt word count
+  - should not increment when inserting duplicate
+  - should create a child node for each letter
+
+  SUGGEST 
+
+  - It shold return an empty array if there are no matches
+  - It should only return correct suggestions
+  - 
+
+  */
