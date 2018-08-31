@@ -12,6 +12,10 @@ describe('NODE', () => {
     expect(node).to.exist;
   });
 
+  // it ('should be an instance of a node', () {
+
+  // })
+
   it('should default end to false', () => {
     expect(node.end).to.equal(false);
   });
